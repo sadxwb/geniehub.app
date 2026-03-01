@@ -1,39 +1,52 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# meal_plan
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Recipes and meal-planning feature module for GenieHub.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+It manages recipe entities, ingredients/steps, meal slots, and AI recipe
+entry points. It can send ingredients to shopping lists through the
+`ShoppingBridge` interface from `core`.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Responsibilities
 
-## Features
+- Recipe and meal-plan data access (`RecipeRepository`, `MealPlanRepository`)
+- Riverpod providers for recipe/meal-plan queries and updates
+- Screens for recipes, recipe detail/edit, meal plan, AI recipe
+- Widgets such as `RecipeCard`, `MealSlotWidget`, and ingredient utilities
+- Shopping bridge consumption in add-to-list flows
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Dependency rule
 
-## Getting started
+`meal_plan` depends on `core` only (no direct dependency on `shopping`).
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Main exports
+
+```dart
+import 'package:meal_plan/meal_plan.dart';
+```
+
+Notable exports include:
+
+- `RecipeRepository`, `MealPlanRepository`
+- `allRecipesProvider`, `recipeDetailProvider`, `recipeIngredientsProvider`
+- `RecipesScreen`, `RecipeDetailScreen`, `MealPlanScreen`, `AiRecipeScreen`
+- `AddToShoppingListDialog`
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Watch recipes in a widget:
 
 ```dart
-const like = 'sample';
+final recipesAsync = ref.watch(allRecipesProvider);
 ```
 
-## Additional information
+Access shopping integration through the bridge abstraction:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+final bridge = ref.read(shoppingBridgeProvider);
+await bridge.addItemsToList(listId, items);
+```
+
+## Development notes
+
+- Keep cross-module integration behind bridge interfaces from `core`.
+- Keep navigation callback-based in feature screens (no `go_router` imports).

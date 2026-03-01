@@ -1,39 +1,48 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# dashboard
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Dashboard composition module for GenieHub.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+This package builds the home/dashboard experience by composing widgets from
+`core`, `shopping`, and `meal_plan`, and managing dashboard-specific UI state
+such as collapsed sections.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Responsibilities
 
-## Features
+- Top-level dashboard screen UI
+- Dashboard container widgets and layout helpers
+- Dashboard state providers (for example section collapse state)
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Dependency rule
 
-## Getting started
+`dashboard` may depend on `core`, `shopping`, and `meal_plan`.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Main exports
+
+```dart
+import 'package:dashboard/dashboard.dart';
+```
+
+Notable exports include:
+
+- `DashboardScreen`
+- `collapsedSectionsProvider`
+- `DashboardWidgetContainer`
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Read dashboard collapsed-section state:
 
 ```dart
-const like = 'sample';
+final collapsed = ref.watch(collapsedSectionsProvider);
 ```
 
-## Additional information
+Toggle a section in callbacks:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+ref.read(collapsedSectionsProvider.notifier).toggle('shopping');
+```
+
+## Development notes
+
+- Keep this package focused on composition/orchestration, not duplicated
+  business logic from feature modules.

@@ -1,39 +1,60 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# core
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Shared foundation package for GenieHub. This package owns common domain models,
+theme, database, auth/subscription primitives, app-level logging providers, and
+cross-module bridge interfaces.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Responsibilities
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+- Drift database (`AppDatabase`) and `databaseProvider`
+- Theme tokens and app theme (`AppColors`, `appTheme`)
+- Auth and subscription models/providers (`UserTier`, `TierGate`, ads)
+- Shared utility widgets (`LoadingWidget`, `AppErrorWidget`)
+- Cross-module contracts (for example `ShoppingBridge`)
+- Logging providers (`talkerProvider`) used across packages
 
-## Features
+## Dependency rule
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+`core` must not depend on other internal packages.
 
-## Getting started
+## Main exports
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Import from the barrel:
+
+```dart
+import 'package:core/core.dart';
+```
+
+Notable exports include:
+
+- `AppDatabase`, `databaseProvider`
+- `ShoppingBridge`, `shoppingBridgeProvider`
+- `UserTier`, `TierGate`
+- `talkerProvider`
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Read shared providers in feature modules:
 
 ```dart
-const like = 'sample';
+final db = ref.watch(databaseProvider);
+final bridge = ref.read(shoppingBridgeProvider);
 ```
 
-## Additional information
+Gate a Pro-only screen:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+TierGate(
+  requiredTier: UserTier.pro,
+  child: const AiRecipeScreen(),
+)
+```
+
+## Development notes
+
+- Use manual Riverpod providers (no code generation).
+- After modifying Drift table definitions, regenerate with:
+
+```bash
+melos build_runner
+```
