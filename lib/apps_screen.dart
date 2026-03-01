@@ -44,22 +44,10 @@ class AppsScreen extends StatelessWidget {
                     onTap: onNavigateToShopping,
                   ),
                   _AppTile(
-                    icon: Icons.restaurant_menu,
-                    label: 'Recipes',
-                    color: theme.colorScheme.secondary,
-                    onTap: onNavigateToRecipes,
-                  ),
-                  _AppTile(
                     icon: Icons.calendar_month,
                     label: 'Meal Plan',
                     color: theme.colorScheme.tertiary,
                     onTap: onNavigateToMealPlan,
-                  ),
-                  _AppTile(
-                    icon: Icons.auto_awesome,
-                    label: 'AI Recipe',
-                    color: theme.colorScheme.error,
-                    onTap: onNavigateToAiRecipe,
                   ),
                 ],
               ),
