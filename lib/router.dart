@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:geniehub_dashboard/geniehub_dashboard.dart';
-import 'package:geniehub_shopping/geniehub_shopping.dart';
-import 'package:geniehub_recipe/geniehub_recipe.dart';
+import 'package:dashboard/dashboard.dart';
+import 'package:shopping/shopping.dart';
+import 'package:meal_plan/meal_plan.dart';
 
 import 'sidebar.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geniehub_core/geniehub_core.dart';
-import 'package:geniehub_shopping/geniehub_shopping.dart';
+import 'package:core/core.dart';
+import 'package:shopping/shopping.dart';
 
 /// Builds Provider overrides that wire cross-module dependencies.
 ///

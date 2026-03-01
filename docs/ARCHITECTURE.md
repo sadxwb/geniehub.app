@@ -12,7 +12,7 @@ GenieHub is a mono-repo Flutter application composed of a thin app shell and 4 f
 │Dashboard │ Shopping  │  Recipe   │  (Future      │
 │ Module   │  Module   │  Module   │   Modules)    │
 ├──────────┴───────────┴───────────┴───────────────┤
-│                  geniehub_core                   │
+│                  core                   │
 │    (theme, auth, DB, bridge, subscription)       │
 └──────────────────────────────────────────────────┘
 ```
@@ -21,12 +21,12 @@ GenieHub is a mono-repo Flutter application composed of a thin app shell and 4 f
 
 ```text
 geniehub (app shell)
-├── geniehub_dashboard
-│   ├── geniehub_shopping
-│   │   └── geniehub_core
-│   └── geniehub_recipe
-│       └── geniehub_core
-└── geniehub_core
+├── dashboard
+│   ├── shopping
+│   │   └── core
+│   └── meal_plan
+│       └── core
+└── core
 ```
 
 Rules:
@@ -206,18 +206,18 @@ This keeps packages decoupled from the routing library and makes screens reusabl
 
 Feature modules cannot depend on each other directly. When module A needs to call module B, the pattern is:
 
-1. **Define interface** in `geniehub_core` (abstract class + DTOs)
+1. **Define interface** in `core` (abstract class + DTOs)
 2. **Implement** in the source module (module B)
 3. **Consume** via provider in the target module (module A)
 4. **Wire** in the app shell via provider override
 
 ```text
-geniehub_core:     abstract ShoppingBridge { ... }
+core:     abstract ShoppingBridge { ... }
                    shoppingBridgeProvider → UnimplementedShoppingBridge
 
-geniehub_shopping: class ShoppingBridgeImpl implements ShoppingBridge { ... }
+shopping: class ShoppingBridgeImpl implements ShoppingBridge { ... }
 
-geniehub_recipe:   ref.watch(shoppingBridgeProvider).getShoppingLists()
+meal_plan:   ref.watch(shoppingBridgeProvider).getShoppingLists()
 
 app shell:         shoppingBridgeProvider.overrideWithValue(bridgeImpl)
 ```

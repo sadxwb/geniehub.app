@@ -18,18 +18,18 @@ GenieHub is a modular Flutter mono-repo app with 4 packages under `packages/` an
 geniehub.app/            # Main app (pubspec.yaml is both workspace root and app)
 ├── lib/                 # App shell: main.dart, router, sidebar, providers
 ├── packages/
-│   ├── geniehub_core/   # Shared foundation (theme, auth, DB, bridge, widgets)
-│   ├── geniehub_shopping/  # Shopping lists feature module
-│   ├── geniehub_recipe/    # Recipes & meal planning feature module
-│   └── geniehub_dashboard/ # Dashboard composing other modules
+│   ├── core/   # Shared foundation (theme, auth, DB, bridge, widgets)
+│   ├── shopping/  # Shopping lists feature module
+│   ├── meal_plan/    # Recipes & meal planning feature module
+│   └── dashboard/ # Dashboard composing other modules
 ```
 
 ### Dependency Rules
 
-- `geniehub_core` depends on NO other internal packages
-- `geniehub_shopping` depends on `geniehub_core` only
-- `geniehub_recipe` depends on `geniehub_core` only (NOT shopping)
-- `geniehub_dashboard` depends on `geniehub_core`, `geniehub_shopping`, `geniehub_recipe`
+- `core` depends on NO other internal packages
+- `shopping` depends on `core` only
+- `meal_plan` depends on `core` only (NOT shopping)
+- `dashboard` depends on `core`, `shopping`, `meal_plan`
 - The root app depends on all 4 packages
 
 **Never** create circular dependencies between packages. If a feature module needs to call another module, use the Bridge pattern (see below).
@@ -45,7 +45,7 @@ geniehub.app/            # Main app (pubspec.yaml is both workspace root and app
 
 ## Database — Drift
 
-- Single `AppDatabase` in `geniehub_core` shared by all modules
+- Single `AppDatabase` in `core` shared by all modules
 - All tables use **TEXT primary keys** (UUIDs generated via `package:uuid`)
 - After changing table definitions in `app_database.dart`, regenerate with:
 
@@ -76,7 +76,7 @@ geniehub.app/            # Main app (pubspec.yaml is both workspace root and app
 
 ## Cross-Module Communication — Shopping Bridge
 
-The `ShoppingBridge` abstract class in `geniehub_core` defines the contract:
+The `ShoppingBridge` abstract class in `core` defines the contract:
 
 ```dart
 abstract class ShoppingBridge {
@@ -90,8 +90,8 @@ abstract class ShoppingBridge {
 }
 ```
 
-- `geniehub_shopping` provides `ShoppingBridgeImpl`
-- `geniehub_recipe` consumes the bridge via `shoppingBridgeProvider` (from core)
+- `shopping` provides `ShoppingBridgeImpl`
+- `meal_plan` consumes the bridge via `shoppingBridgeProvider` (from core)
 - The bridge is wired via provider override in `lib/providers.dart`
 - When adding new cross-module communication, follow this same pattern: define interface in core, implement in source module, consume via provider in target module
 
@@ -127,7 +127,7 @@ TierGate(
 ### Logging
 
 - Use `talker_flutter` and `talker_riverpod_logger` for all app-level logging instead of `print` or `debugPrint`.
-- The `Talker` instance is globally provided via `talkerProvider` in `geniehub_core`.
+- The `Talker` instance is globally provided via `talkerProvider` in `core`.
 - Riverpod state events are automatically logged via `TalkerRiverpodObserver` configured in `main.dart`.
 - Uncaught exceptions and framework errors are automatically routed to Talker.
 - For specific logic, access Talker via Riverpod: `ref.read(talkerProvider).info('Some event');`

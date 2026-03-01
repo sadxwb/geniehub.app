@@ -7,23 +7,23 @@ environment:
   sdk: ^3.11.0
 
 workspace:
-  - packages/geniehub_core
-  - packages/geniehub_shopping
-  - packages/geniehub_recipe
-  - packages/geniehub_dashboard
+  - packages/core
+  - packages/shopping
+  - packages/meal_plan
+  - packages/dashboard
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  geniehub_core:
-    path: packages/geniehub_core
-  geniehub_shopping:
-    path: packages/geniehub_shopping
-  geniehub_recipe:
-    path: packages/geniehub_recipe
-  geniehub_dashboard:
-    path: packages/geniehub_dashboard
+  core:
+    path: packages/core
+  shopping:
+    path: packages/shopping
+  meal_plan:
+    path: packages/meal_plan
+  dashboard:
+    path: packages/dashboard
   flutter_riverpod: ^3.2.1
   go_router: ^17.1.0
   google_mobile_ads: ^7.0.0

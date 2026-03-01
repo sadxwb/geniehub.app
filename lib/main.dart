@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:geniehub_core/geniehub_core.dart'; // Add this line
+import 'package:core/core.dart'; // Add this line
 
 import 'app.dart';
 import 'providers.dart';

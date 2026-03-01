@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geniehub_core/geniehub_core.dart';
+import 'package:core/core.dart';
 
 import 'router.dart';
 

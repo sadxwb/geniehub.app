@@ -1,0 +1,29 @@
+name: dashboard
+description: "GenieHub Dashboard module - aggregates widgets from all app modules"
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+  flutter: ">=3.41.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    path: ../core
+  shopping:
+    path: ../shopping
+  meal_plan:
+    path: ../meal_plan
+  flutter_riverpod: ^3.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

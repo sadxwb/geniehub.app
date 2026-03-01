@@ -44,10 +44,10 @@ geniehub.app/
 │   ├── sidebar.dart             # Responsive sidebar/drawer
 │   └── providers.dart           # App-level provider overrides
 ├── packages/
-│   ├── geniehub_core/           # Shared: theme, auth, DB, bridge, widgets
-│   ├── geniehub_shopping/       # Shopping lists module
-│   ├── geniehub_recipe/         # Recipes & meal planning module
-│   └── geniehub_dashboard/      # Dashboard that composes other modules
+│   ├── core/           # Shared: theme, auth, DB, bridge, widgets
+│   ├── shopping/       # Shopping lists module
+│   ├── meal_plan/         # Recipes & meal planning module
+│   └── dashboard/      # Dashboard that composes other modules
 ├── android/ ios/ web/           # Platform folders
 ├── pubspec.yaml                 # Workspace root + app dependencies
 └── melos.yaml                   # Mono-repo scripts
@@ -93,7 +93,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical documentation.
 ### Key Patterns
 
 - **Repository pattern** — Each module has a repository wrapping Drift queries, with planned tier-aware routing to Firestore
-- **Shopping Bridge** — Abstract interface in `geniehub_core`, implemented by the shopping module, consumed by the recipe module. Enables cross-module communication without direct package dependencies
+- **Shopping Bridge** — Abstract interface in `core`, implemented by the shopping module, consumed by the recipe module. Enables cross-module communication without direct package dependencies
 - **Callback-based navigation** — Feature modules use callback props (e.g., `onRecipeTap`, `onListTap`) instead of importing GoRouter. The main app's `router.dart` wires these to actual navigation
 - **Provider overrides** — The database, repository, and bridge are wired via Riverpod provider overrides in `main.dart`
 
