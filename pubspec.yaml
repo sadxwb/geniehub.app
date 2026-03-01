@@ -1,0 +1,71 @@
+name: geniehub
+description: "GenieHub - Your family's digital hub"
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+workspace:
+  - packages/geniehub_core
+  - packages/geniehub_shopping
+  - packages/geniehub_recipe
+  - packages/geniehub_dashboard
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  geniehub_core:
+    path: packages/geniehub_core
+  geniehub_shopping:
+    path: packages/geniehub_shopping
+  geniehub_recipe:
+    path: packages/geniehub_recipe
+  geniehub_dashboard:
+    path: packages/geniehub_dashboard
+  flutter_riverpod: ^3.2.1
+  go_router: ^17.1.0
+  google_mobile_ads: ^7.0.0
+  flutter_dotenv: ^5.2.1
+
+  flutter_launcher_icons: ^0.14.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  melos: ^7.4.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+
+melos:
+  command:
+    bootstrap:
+      usePubspecOverrides: true
+  scripts:
+    analyze:
+      run: dart analyze .
+      description: Run dart analyze across the workspace
+    build_runner:
+      run: dart run build_runner build --delete-conflicting-outputs
+      exec:
+        concurrency: 1
+      packageFilters:
+        dependsOn: build_runner
+      description: Run build_runner in packages that depend on it
+    clean:
+      run: flutter clean
+      exec:
+        concurrency: 5
+      description: Clean all packages
+    test:
+      run: flutter test
+      exec:
+        concurrency: 5
+      packageFilters:
+        dirExists: test
+      description: Run tests in all packages
