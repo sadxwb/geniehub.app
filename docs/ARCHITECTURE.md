@@ -111,6 +111,16 @@ When Firebase is integrated, repositories will route to different data sources b
 - `UserTier.free` → Local Drift only
 - `UserTier.plus+` → Firestore with local cache
 
+## Logging Layer
+
+### Talker Framework
+
+GenieHub centralizes all error, network, AI, and debug log outputs using **Talker** via `talker_flutter` and `talker_riverpod_logger`.
+
+1. **Providers Hook**: Changes crossing Riverpod state propagate implicitly given our `ProviderScope`'s setup.
+2. **Crash Capturing**: Unhandled global exceptions in Flutter (`FlutterError.onError`) and Dart background routines (`PlatformDispatcher.instance.onError`) are trapped to Talker seamlessly.
+3. **Local References**: Downstream repositories query `ref.watch(talkerProvider).info(...)` to manually log AI generative flows.
+
 ## State Management
 
 ### Riverpod Provider Types

@@ -29,6 +29,7 @@ A modular Flutter app that bundles family-focused mini-apps — shopping lists, 
 | State Management | Riverpod (flutter_riverpod ^2.6.1) |
 | Local Database | Drift ^2.22.1 (SQLite) |
 | Navigation | GoRouter ^14.8.1 with ShellRoute |
+| Logging / Trace | Talker (talker_flutter, riverpod traces) |
 | Cloud (planned) | Firebase Auth, Firestore, Vertex AI |
 | Mono-repo | Melos + Flutter workspace |
 

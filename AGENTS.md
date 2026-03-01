@@ -124,6 +124,14 @@ TierGate(
 - Use trailing commas for multi-line parameter lists
 - Use `super.key` in constructors (not `Key? key`)
 
+### Logging
+
+- Use `talker_flutter` and `talker_riverpod_logger` for all app-level logging instead of `print` or `debugPrint`.
+- The `Talker` instance is globally provided via `talkerProvider` in `geniehub_core`.
+- Riverpod state events are automatically logged via `TalkerRiverpodObserver` configured in `main.dart`.
+- Uncaught exceptions and framework errors are automatically routed to Talker.
+- For specific logic, access Talker via Riverpod: `ref.read(talkerProvider).info('Some event');`
+
 ### Widget Conventions
 
 - Extend `ConsumerWidget` for stateless widgets that use Riverpod
