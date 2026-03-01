@@ -21,6 +21,9 @@ dependencies:
   intl: ^0.20.2
   google_mobile_ads: ^7.0.0
   flutter_dotenv: ^5.2.1
+  talker: ^5.1.14
+  talker_flutter: ^5.1.14
+  talker_riverpod_logger: ^5.1.14
 
 dev_dependencies:
   flutter_test:

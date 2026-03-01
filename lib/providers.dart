@@ -6,10 +6,7 @@ import 'package:geniehub_shopping/geniehub_shopping.dart';
 ///
 /// Called once in [main] and passed to the root [ProviderScope].
 // ignore: strict_top_level_inference
-final appProviderOverrides = _buildOverrides();
-
-// ignore: strict_top_level_inference
-_buildOverrides() {
+buildAppProviderOverrides(Talker talker) {
   final db = AppDatabase();
   final shoppingRepo = ShoppingRepository(db);
   final bridge = ShoppingBridgeImpl(shoppingRepo);
@@ -17,5 +14,6 @@ _buildOverrides() {
   return [
     databaseProvider.overrideWithValue(db),
     shoppingBridgeProvider.overrideWithValue(bridge),
+    talkerProvider.overrideWithValue(talker),
   ];
 }

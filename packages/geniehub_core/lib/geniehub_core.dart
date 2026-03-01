@@ -3,7 +3,6 @@
 /// Provides theme, auth models, subscription gating, Drift database,
 /// cross-module bridge interfaces, and common widgets used by all
 /// feature packages.
-library geniehub_core;
 
 // ---- Auth ----
 export 'src/auth/auth_models.dart';
@@ -29,6 +28,9 @@ export 'src/database/database_provider.dart';
 // ---- Bridge ----
 export 'src/bridge/shopping_bridge.dart';
 export 'src/bridge/shopping_bridge_provider.dart';
+
+// ---- Logging ----
+export 'src/logging/log_providers.dart';
 
 // ---- Widgets ----
 export 'src/widgets/error_widget.dart';
